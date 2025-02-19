@@ -93,6 +93,7 @@
                 @click="navigateToShowDetails(show.id)"
             >
                 <img
+                    loading="lazy"
                     :src="show.imageUrl"
                     :alt="show.title"
                     class="shows-list__image"
