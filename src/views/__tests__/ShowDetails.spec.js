@@ -101,4 +101,16 @@ describe('ShowDetails.vue', () => {
         expect(backHomeLink.exists()).toBe(true);
         expect(backHomeLink.attributes('to')).toBe('/');
     });
+
+    it('should handle API errors gracefully', async () => {
+        vi.spyOn(console, 'error').mockImplementation(() => {});
+
+        tvMazeService.getShowById.mockRejectedValueOnce(new Error('API Error'));
+
+        await wrapper.vm.getShowDetails();
+
+        await wrapper.vm.$nextTick();
+
+        expect(console.error).toHaveBeenCalledWith('Error fetching show:', expect.any(Error));
+    });
 });
